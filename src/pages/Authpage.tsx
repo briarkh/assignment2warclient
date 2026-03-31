@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginUser, registerUser } from "../services/authService";
 
 function Authpage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   async function handleRegister() {
     if (!username || !password) {
@@ -15,7 +17,12 @@ function Authpage() {
     try {
       const result = await registerUser({ username, password });
       setMessage(result.message);
-    } catch (error) {
+
+      if (result.token) {
+        localStorage.setItem("token", result.token);
+        navigate("/game");
+      }
+    } catch {
       setMessage("Register failed.");
     }
   }
@@ -29,7 +36,12 @@ function Authpage() {
     try {
       const result = await loginUser({ username, password });
       setMessage(result.message);
-    } catch (error) {
+
+      if (result.token) {
+        localStorage.setItem("token", result.token);
+        navigate("/game");
+      }
+    } catch {
       setMessage("Login failed.");
     }
   }
