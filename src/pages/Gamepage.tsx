@@ -70,9 +70,8 @@ function Gamepage() {
   return (
     <div>
       <h1>War Game</h1>
-
       <button onClick={handleStartGame}>Start New Game</button>
-      <button onClick={handleViewHistory}>View History</button>
+      <button onClick={handleViewHistory}>History</button>
       <button onClick={handleLogout}>Logout</button>
 
       {game && (
@@ -90,7 +89,7 @@ function Gamepage() {
           <p>Winner: {game.winner ? game.winner : "No winner yet"}</p>
 
           <button onClick={handlePlayRound} disabled={game.isFinished}>
-            Flip / Play Round
+            Flip
           </button>
         </div>
       )}
